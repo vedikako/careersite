@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Aptitude Test – Results</title>
+
+    <!-- jsPDF Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <!-- Chart.js Library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #eef2f3;
+            padding: 30px;
+        }
+        .container {
+            width: 60%;
+            margin: auto;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h2 {
+            text-align: center;
+        }
+        .score-box {
+            margin-top: 20px;
+            background: #f7fff4;
+            padding: 20px;
+            border-left: 6px solid green;
+        }
+        .btn {
+            margin-top: 20px;
+            padding: 12px 20px;
+            background: #4CAF50;
+            border: none;
+            border-radius: 6px;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        /* Hide canvas (used only for PDF chart) */
+        #chartCanvas {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Full Aptitude Report</h2>
+
+    <div id="resultSection" class="score-box">
+        Loading results...
+    </div>
+
+    <button class="btn" onclick="window.location.href='tests/aptitude.html'">
+        Retake Test
+    </button>
+
+    <button class="btn" onclick="downloadPDF()">
+        Download PDF
+    </button>
+</div>
+
+<!-- Hidden canvas for chart -->
+<canvas id="chartCanvas" width="400" height="300"></canvas>
+
+<script>
+
+// LOAD RESULTS INTO PAGE
+function loadResults() {
+
+    let total = localStorage.getItem("aptitude_total_score");
+    let categories = JSON.parse(localStorage.getItem("aptitude_categories"));
+
+    if (total === null || categories === null) {
+        document.getElementById("resultSection").innerHTML = 
+            "<p>No test taken yet. Please complete the aptitude test first.</p>";
+        return;
+    }
+
+    total = parseInt(total);
+
+    let message = "";
+    if (total >= 12) {
+        message = "Excellent aptitude! Strong numerical, logical, and pattern recognition ability.";
+    } else if (total >= 7) {
+        message = "Good aptitude level. You have solid reasoning and analytical skills.";
+    } else {
+        message = "Needs improvement. With practice in numerical and logical reasoning, you will progress.";
+    }
+
+    document.getElementById("resultSection").innerHTML = `
+        <h3>Your Weighted Score: ${total}</h3>
+        <p>${message}</p>
+
+        <h4>Category Breakdown:</h4>
+        <ul>
+            <li><b>Numerical:</b> ${categories.numerical}</li>
+            <li><b>Logical:</b> ${categories.logical}</li>
+            <li><b>Pattern:</b> ${categories.pattern}</li>
+            <li><b>Verbal:</b> ${categories.verbal}</li>
+        </ul>
+    `;
+}
+
+loadResults();
+
+
+// PDF WITH CHART
+async function downloadPDF() {
+    const { jsPDF } = window.jspdf;
+
+    let total = localStorage.getItem("aptitude_total_score");
+    let categories = JSON.parse(localStorage.getItem("aptitude_categories"));
+
+    let ctx = document.getElementById("chartCanvas").getContext("2d");
+
+    // CREATE BAR CHART
+    let chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ["Numerical", "Logical", "Pattern", "Verbal"],
+            datasets: [{
+                label: "Category Scores",
+                data: [
+                    categories.numerical,
+                    categories.logical,
+                    categories.pattern,
+                    categories.verbal
+                ],
+                backgroundColor: ["#4CAF50", "#2196F3", "#FF9800", "#9C27B0"]
+            }]
+        },
+        options: {
+            responsive: false,
+            animation: {
+                duration: 0
+            }
+        }
+    });
+
+    // Convert chart to image
+    let chartImage = document.getElementById("chartCanvas").toDataURL("image/png");
+
+    // CREATE PDF
+    const doc = new jsPDF();
+
+    // Title
+    doc.setFontSize(18);
+    doc.text("Aptitude Test Report", 10, 20);
+
+    // Score section
+    doc.setFontSize(14);
+    doc.text(`Total Weighted Score: ${total}`, 10, 40);
+
+    doc.text("Category Breakdown:", 10, 60);
+    doc.setFontSize(12);
+    doc.text(`Numerical: ${categories.numerical}`, 10, 70);
+    doc.text(`Logical: ${categories.logical}`, 10, 80);
+    doc.text(`Pattern: ${categories.pattern}`, 10, 90);
+    doc.text(`Verbal: ${categories.verbal}`, 10, 100);
+
+    // Add Chart Image
+    doc.addImage(chartImage, "PNG", 10, 120, 180, 100);
+
+    // Save PDF
+    doc.save("Aptitude_Report.pdf");
+
+    // Destroy chart instance so it doesn’t stack
+    chart.destroy();
+}
+
+</script>
+
+</body>
+</html>
