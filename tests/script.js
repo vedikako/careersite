@@ -13,6 +13,14 @@ const questions = {
 };
 
 function calculateScore() {
+    let name = document.getElementById("studentName").value.trim();
+    let studentClass = document.getElementById("studentClass").value.trim();
+
+    if (name === "" || studentClass === "") {
+    alert("Please enter student name and class.");
+    return;
+    }//saving student details
+
     let totalScore = 0;
     let categoryScores = { numerical: 0, logical: 0, pattern: 0, verbal: 0 };
         // 🔴 VALIDATION: check all questions answered
@@ -23,6 +31,9 @@ function calculateScore() {
             return; // stop submission
         }
     }
+    localStorage.setItem("student_name", name);
+    localStorage.setItem("student_class", studentClass);
+
 
     for (let q in questions) {
         let userAnswer = document.querySelector(`input[name=${q}]:checked`);

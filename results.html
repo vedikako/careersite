@@ -57,6 +57,7 @@
 
 <div class="container">
     <h2>Full Aptitude Report</h2>
+    <h3 id="studentInfo"></h3>
 
     <div id="resultSection" class="score-box">
         Loading results...
@@ -75,6 +76,21 @@
 <canvas id="chartCanvas" width="400" height="300"></canvas>
 
 <script>
+
+
+// LOAD STUDENT INFO
+    let name = localStorage.getItem("student_name");
+    let studentClass = localStorage.getItem("student_class");
+
+    if (name && studentClass) {
+        document.getElementById("studentInfo").innerHTML =
+            `Name: <b>${name}</b><br>Class: <b>${studentClass}</b>`;
+    } else {
+        document.getElementById("studentInfo").innerHTML =
+            "Student details not found";
+    }
+
+    
 
 // LOAD RESULTS INTO PAGE
 function loadResults() {
@@ -119,6 +135,12 @@ loadResults();
 // PDF WITH CHART
 async function downloadPDF() {
     const { jsPDF } = window.jspdf;
+    
+    
+
+    // for printing name,class in pdf 
+    let name = localStorage.getItem("student_name") || "N/A";
+    let studentClass = localStorage.getItem("student_class") || "N/A";
 
     let total = localStorage.getItem("aptitude_total_score");
     let categories = JSON.parse(localStorage.getItem("aptitude_categories"));
@@ -158,20 +180,25 @@ async function downloadPDF() {
     // Title
     doc.setFontSize(18);
     doc.text("Aptitude Test Report", 10, 20);
+    //printing student details
+    doc.setFontSize(12);
+    doc.text(`Name: ${name}`, 10, 30);
+    doc.text(`Class: ${studentClass}`, 10, 38);
+
 
     // Score section
     doc.setFontSize(14);
-    doc.text(`Total Weighted Score: ${total}`, 10, 40);
+    doc.text(`Total Weighted Score: ${total}`, 10, 55);
 
-    doc.text("Category Breakdown:", 10, 60);
+    doc.text("Category Breakdown:", 10, 70);
     doc.setFontSize(12);
-    doc.text(`Numerical: ${categories.numerical}`, 10, 70);
-    doc.text(`Logical: ${categories.logical}`, 10, 80);
-    doc.text(`Pattern: ${categories.pattern}`, 10, 90);
-    doc.text(`Verbal: ${categories.verbal}`, 10, 100);
+    doc.text(`Numerical: ${categories.numerical}`, 10, 80);
+    doc.text(`Logical: ${categories.logical}`, 10, 90);
+    doc.text(`Pattern: ${categories.pattern}`, 10, 100);
+    doc.text(`Verbal: ${categories.verbal}`, 10, 110);
 
     // Add Chart Image
-    doc.addImage(chartImage, "PNG", 10, 120, 180, 100);
+    doc.addImage(chartImage, "PNG", 10, 125, 180, 100);
 
     // Save PDF
     doc.save("Aptitude_Report.pdf");
