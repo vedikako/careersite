@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Aptitude Test – Results</title>
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 
     <!-- jsPDF Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -63,8 +66,11 @@
         Loading results...
     </div>
 
-    <button class="btn" onclick="window.location.href='tests/aptitude.html'">
+    <!-- <button class="btn" onclick="window.location.href='tests/aptitude.html'">
         Retake Test
+    </button> -->
+    <button class="btn" onclick="resetAndRetake()">
+    Retake Test
     </button>
 
     <button class="btn" onclick="downloadPDF()">
@@ -91,20 +97,69 @@
     }
 
     
+    // 🔥 FIREBASE CONFIG (PASTE YOUR OWN DETAILS)
+    const firebaseConfig = {
+        apiKey: "AIzaSyDmPuS8qdcVk3tOT0otxhQwXyABL5KdUpI",
+        authDomain: "career-counselling-site-cbe7a.firebaseapp.com",
+        projectId: "career-counselling-site-cbe7a",
+        storageBucket: "career-counselling-site-cbe7a.firebasestorage.app",
+        messagingSenderId: "618623222390",
+        appId: "1:618623222390:web:92a94e147560dfc9f85557",
+        measurementId: "G-1DGXL8YTKH"
+    };
 
-// LOAD RESULTS INTO PAGE
-function loadResults() {
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    // Initialize Firestore
+    const db = firebase.firestore();
+    
+ async function saveResultToDB(total, categories) {
+
+    // ❌ prevent duplicate save
+    if (localStorage.getItem("result_saved")) return;
+
+    const name = localStorage.getItem("student_name");
+    const studentClass = localStorage.getItem("student_class");
+
+    if (!name || !studentClass) return;
+
+    try {
+        await db.collection("aptitudeResults").add({
+            name: name,
+            class: studentClass,
+            totalScore: total,
+            categories: categories,
+            createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        });
+
+        // ✅ mark as saved
+        localStorage.setItem("result_saved", "true");
+
+        console.log("Result saved to database");
+    } catch (error) {
+        console.error("Error saving result:", error);
+    }
+}
+
+
+    // LOAD RESULTS INTO PAGE
+    function loadResults() {
 
     let total = localStorage.getItem("aptitude_total_score");
     let categories = JSON.parse(localStorage.getItem("aptitude_categories"));
+    //saveResultToDB(total, categories);
 
     if (total === null || categories === null) {
         document.getElementById("resultSection").innerHTML = 
             "<p>No test taken yet. Please complete the aptitude test first.</p>";
         return;
     }
-
     total = parseInt(total);
+    // ✅ save result only after validation
+    saveResultToDB(total, categories);
+
+    //total = parseInt(total);
 
     let message = "";
     if (total >= 12) {
@@ -205,6 +260,10 @@ async function downloadPDF() {
 
     // Destroy chart instance so it doesn’t stack
     chart.destroy();
+}
+function resetAndRetake() {
+    localStorage.removeItem("result_saved"); // allow new save
+    window.location.href = "tests/aptitude.html";
 }
 
 </script>
