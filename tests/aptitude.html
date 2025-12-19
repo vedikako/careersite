@@ -49,6 +49,9 @@
 
 <div class="container">
     <h2>Aptitude Test</h2>
+    <p id="timer" style="text-align:center; font-size:18px; font-weight:bold;">
+        Time Left: 10:00
+    </p>
 
     <form id="quizForm">
         <div class="question">
@@ -160,6 +163,39 @@
     
     <div id="resultBox"></div>
 </div>
+
+<script> // code for timer
+    let timeLeft = 600; // 10 minutes in seconds
+    let timerElement = document.getElementById("timer");
+    let timerInterval;
+
+    function startTimer() {
+        timerInterval = setInterval(() => {
+            let minutes = Math.floor(timeLeft / 60);
+            let seconds = timeLeft % 60;
+
+            timerElement.innerHTML = 
+                `Time Left: ${minutes}:${seconds < 10 ? "0" + seconds : seconds}`;
+
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                alert("Time is up! Your test will be submitted.");
+                calculateScore(); // auto submit
+                disableInputs();
+            }
+
+            timeLeft--;
+        }, 1000);
+    }
+
+    function disableInputs() {
+        const inputs = document.querySelectorAll("input");
+        inputs.forEach(input => input.disabled = true);
+    }
+
+    // Start timer when page loads
+    window.onload = startTimer;
+</script>
 
 <script src="script.js"></script>
 
