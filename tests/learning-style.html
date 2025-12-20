@@ -1,18 +1,19 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Study Habits Assessment</title>
+    <title>Learning Style Test</title>
     <link rel="stylesheet" href="../style.css">
 </head>
-
 <body>
-
-<div class="test-container">
-    <h1>Study Habits Assessment</h1>
+    <!-- <div class="test-container">
+        <h2>Learning Style Assessment</h2>
+        <p>Coming soon...</p>
+    </div> -->
+    <div class="test-container">
+    <h1>Learning Style Assessment</h1>
     <p class="test-desc">
-        Answer honestly. There are no right or wrong answers.
+        Read each statement carefully and choose Yes or No based on what is usually true for you.
+        Answer honestly, there are no right or wrong answers.
     </p>
 
     <div id="timer">Time Left: <span id="time">10:00</span></div>
@@ -20,121 +21,121 @@
     <form id="studyForm">
 
         <div class="question">
-            <p>1. Do you usually study only the night before an exam?</p>
+            <p>1.I understand new topics better when I listen to an explanation.</p>
             <label><input type="radio" name="q1" value="yes" required> Yes</label>
             <label><input type="radio" name="q1" value="no"> No</label>
         </div>
 
         <div class="question">
-            <p>2. Do you often lose focus or daydream during class?</p>
+            <p>2. I remember information better when I write it down.</p>
             <label><input type="radio" name="q2" value="yes" required> Yes</label>
             <label><input type="radio" name="q2" value="no"> No</label>
         </div>
 
         <div class="question">
-            <p>3. Do you revise what is taught in class on the same day?</p>
+            <p>3. I prefer trying something myself rather than being told how to do it.</p>
             <label><input type="radio" name="q3" value="yes" required> Yes</label>
             <label><input type="radio" name="q3" value="no"> No</label>
         </div>
 
         <div class="question">
-            <p>4. Do you forget what you studied the previous day?</p>
+            <p>4. I like to discuss ideas with others before starting work.</p>
             <label><input type="radio" name="q4" value="yes" required> Yes</label>
             <label><input type="radio" name="q4" value="no"> No</label>
         </div>
 
         <div class="question">
-            <p>5. Do you plan your study time before you start studying?</p>
+            <p>5. I remember spellings or facts by seeing them in my mind.</p>
             <label><input type="radio" name="q5" value="yes" required> Yes</label>
             <label><input type="radio" name="q5" value="no"> No</label>
         </div>
 
         <div class="question">
-            <p>6. Do you get distracted by your phone while studying?</p>
+            <p>6. Background noise makes it hard for me to concentrate.</p>
             <label><input type="radio" name="q6" value="yes" required> Yes</label>
             <label><input type="radio" name="q6" value="no"> No</label>
         </div>
 
         <div class="question">
-            <p>7. Do you feel anxious or nervous during exams?</p>
+            <p>7.I use hand movements or gestures when explaining something.</p>
             <label><input type="radio" name="q7" value="yes" required> Yes</label>
             <label><input type="radio" name="q7" value="no"> No</label>
         </div>
 
         <div class="question">
-            <p>8. Are you able to manage your time properly during exams?</p>
+            <p>8. I prefer diagrams, charts, or pictures over long text.</p>
             <label><input type="radio" name="q8" value="yes" required> Yes</label>
             <label><input type="radio" name="q8" value="no"> No</label>
         </div>
 
         <div class="question">
-            <p>9. Do you try to understand and correct your mistakes?</p>
+            <p>9. I learn best when I can move around or stay physically active.</p>
             <label><input type="radio" name="q9" value="yes" required> Yes</label>
             <label><input type="radio" name="q9" value="no"> No</label>
         </div>
 
         <div class="question">
-            <p>10. Do you feel confident about your preparation before exams?</p>
+            <p>10.I remember people more easily by their faces than their names.</p>
             <label><input type="radio" name="q10" value="yes" required> Yes</label>
             <label><input type="radio" name="q10" value="no"> No</label>
         </div>
 
         <div class="question">
-            <p>11. Do you usually study in a quiet and organized place?</p>
+            <p>11. I like to read aloud or talk through a problem.</p>
             <label><input type="radio" name="q11" value="yes" required> Yes</label>
             <label><input type="radio" name="q11" value="no"> No</label>
         </div>
 
         <div class="question">
-            <p>12. Do you take short breaks while studying?</p>
+            <p>12. I enjoy hands-on activities such as experiments or models.</p>
             <label><input type="radio" name="q12" value="yes" required> Yes</label>
             <label><input type="radio" name="q12" value="no"> No</label>
         </div>
 
         <div class="question">
-            <p>13. Do you complete your homework on time?</p>
+            <p>13. I make lists, mind maps, or sketches while learning.</p>
             <label><input type="radio" name="q13" value="yes" required> Yes</label>
             <label><input type="radio" name="q13" value="no"> No</label>
         </div>
 
         <div class="question">
-            <p>14. Do you ask questions when you do not understand a topic?</p>
+            <p>14. I remember information better by hearing it in my head later.</p>
             <label><input type="radio" name="q14" value="yes" required> Yes</label>
             <label><input type="radio" name="q14" value="no"> No</label>
         </div>
 
         <div class="question">
-            <p>15. Do you revise important topics before exams?</p>
+            <p>15. I find it difficult to sit still for long periods while studying.</p>
             <label><input type="radio" name="q15" value="yes" required> Yes</label>
             <label><input type="radio" name="q15" value="no"> No</label>
         </div>
 
         <div class="question">
-            <p>16. Do you find it easy to remember what you study?</p>
+            <p>16. I learn a new skill best by watching someone demonstrate it.</p>
             <label><input type="radio" name="q16" value="yes" required> Yes</label>
             <label><input type="radio" name="q16" value="no"> No</label>
         </div>
 
         <div class="question">
-            <p>17. Do you feel stressed when you have many subjects to study?</p>
+            <p>17. I enjoy word games, puzzles, or reading-related activities.</p>
             <label><input type="radio" name="q17" value="yes" required> Yes</label>
             <label><input type="radio" name="q17" value="no"> No</label>
         </div>
 
         <div class="question">
-            <p>18. Do you try different study methods to learn better?</p>
+            <p>18.I prefer step-by-step spoken instructions rather than written ones.</p>
             <label><input type="radio" name="q18" value="yes" required> Yes</label>
             <label><input type="radio" name="q18" value="no"> No</label>
         </div>
 
         <div class="question">
-            <p>19. Can you study for long periods without getting tired?</p>
+            <p>19. I like to doodle or draw while thinking or listening.</p>
             <label><input type="radio" name="q19" value="yes" required> Yes</label>
             <label><input type="radio" name="q19" value="no"> No</label>
         </div>
 
         <div class="question">
-            <p>20. Are you satisfied with your current study habits?</p>
+            <p>20. I learn best when I can act, build, or physically do something.</p>
             <label><input type="radio" name="q20" value="yes" required> Yes</label>
             <label><input type="radio" name="q20" value="no"> No</label>
         </div>
@@ -142,64 +143,5 @@
         <button type="submit" class="submit-btn">Submit Assessment</button>
     </form>
 </div>
-
-<!-- <script>
-    let timeLeft = 600; // 10 minutes
-    const timerDisplay = document.getElementById("time");
-    const form = document.getElementById("studyForm");
-
-    const timer = setInterval(() => {
-        let minutes = Math.floor(timeLeft / 60);
-        let seconds = timeLeft % 60;
-
-        timerDisplay.textContent =
-            minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
-
-        if (timeLeft <= 0) {
-            clearInterval(timer);
-            alert("Time is up! Your test will be submitted automatically.");
-            form.submit();
-        }
-
-        timeLeft--;
-    }, 1000);
-</script> -->
-
-
-<!--new script – timer + save completion + redirect -->
-
-<script>
-    let timeLeft = 600;
-    const timerDisplay = document.getElementById("time");
-    const form = document.getElementById("studyForm");
-
-    function submitTest() {
-        localStorage.setItem("studyCompleted", "true");
-        window.location.href = "select-test.html";
-    }
-
-    form.addEventListener("submit", function (e) {
-        e.preventDefault();
-        submitTest();
-    });
-
-    const timer = setInterval(() => {
-        let minutes = Math.floor(timeLeft / 60);
-        let seconds = timeLeft % 60;
-
-        timerDisplay.textContent =
-            minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
-
-        if (timeLeft <= 0) {
-            clearInterval(timer);
-            alert("Time is up! Your test will be submitted automatically.");
-            submitTest();
-        }
-
-        timeLeft--;
-    }, 1000);
-</script>
-
-
 </body>
 </html>

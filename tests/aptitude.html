@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Aptitude Test</title>
-    <style>
+    <!-- <style>
         body {
             font-family: Arial, sans-serif;
             background: #f2f2f2;
@@ -43,25 +43,35 @@
             border-radius: 8px;
             display: none;
         }
-    </style>
+    </style> -->
+    
+    
+
+    <link rel="stylesheet" href="../style.css">
+
 </head>
 <body>
 
-<div class="container">
-    <h2>Aptitude Test</h2>
-    <p id="timer" style="text-align:center; font-size:18px; font-weight:bold;">
-        Time Left: 10:00
+<div class="test-container">
+    <h1>Aptitude Test</h1>
+    <p class="test-desc">
+        Test your numerical, logical, pattern recognition, and verbal skills.
     </p>
+
+    <!-- <p id="timer" style="text-align:center; font-size:18px; font-weight:bold;">
+        Time Left: 10:00
+    </p> -->
+    <div id="timer">Time Left: <span id="time">10:00</span></div>
 
     <form id="quizForm">
         <div class="question">
-            <p><b>Student Details</b></p>
+            <!-- <p><b>Student Details</b></p>
 
             <label>Name:</label><br>
             <input type="text" id="studentName" required><br><br>
 
             <label>Class / Stream:</label><br>
-             <input type="text" id="studentClass" required>
+             <input type="text" id="studentClass" required> -->
         </div>
         <!-- Question 1 -->
         <div class="question">
@@ -155,7 +165,7 @@
 
         <!--  <button type="button" onclick="calculateScore()">Submit Test</button>
           -->
-        <button type="button" id="submitBtn" onclick="calculateScore()">
+        <button type="button" class="submit-btn" onclick="calculateScore()">
              Submit Test
         </button>
 
@@ -166,7 +176,7 @@
 
 <script> // code for timer
     let timeLeft = 600; // 10 minutes in seconds
-    let timerElement = document.getElementById("timer");
+    let timerElement = document.getElementById("time");
     let timerInterval;
 
     function startTimer() {

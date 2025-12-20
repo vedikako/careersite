@@ -1,29 +1,3 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Career Assessment System</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-
-<div class="container">
-    <h1>Career Guidance Assessment</h1>
-    <p>Start your journey by taking our scientifically designed tests.</p>
-
-    <button onclick="window.location.href='tests/aptitude.html'">
-        Start Aptitude Test for 8th/ 9th grade 
-    </button>
-   <button onclick="window.location.href='tests/wip.html'">
-         Start Aptitude Test for 10th grade
-   </button>
-   <button onclick="window.location.href='tests/wip.html'">
-         Start Aptitude Test for 11th/12th grade
-   </button>
-
-</div>
-</body>
-</html> -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,21 +11,31 @@
 <body>
 
 <div class="container">
-    <h1>Career Guidance Assessment</h1>
-    <p>Start your journey by taking our scientifically designed tests.</p>
+    <h1>Career Foundation Assessment</h1>
+    <p>
+        A comprehensive assessment to understand study habits, aptitude,
+        and learning style for informed career guidance.
+    </p>
 
-    <button onclick="window.location.href='tests/aptitude.html'">
-        Start Aptitude Test for 8th / 9th Grade
+
+    <button onclick="window.location.href='tests/select-test.html?grade=8-9'">
+        Class 8–9 Career Assessment
     </button>
 
-    <button onclick="window.location.href='tests/wip.html'">
-        Start Aptitude Test for 10th Grade
+    <button onclick="window.location.href='tests/wip.html?grade=10'">
+        Class 10 Career Assessment
     </button>
 
-    <button onclick="window.location.href='tests/wip.html'">
-        Start Aptitude Test for 11th / 12th Grade
+    <button onclick="window.location.href='tests/wip.html?grade=11-12'">
+        Class 11–12 Career Assessment
     </button>
+
 </div>
-
+<script>
+    // Clear all test completion flags when returning to home
+    localStorage.removeItem("studyCompleted");
+    localStorage.removeItem("learningCompleted");
+    localStorage.removeItem("aptitudeCompleted");
+</script>
 </body>
 </html>

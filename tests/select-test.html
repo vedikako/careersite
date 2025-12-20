@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Select Test</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>Select Assessment Type</h1>
+    <p id="gradeInfo"></p>
+
+    <!-- <button onclick="goToTest('aptitude')">
+        Aptitude Test
+    </button>
+
+    <button onclick="goToTest('study-habits')">
+        Study Habits Test
+    </button>
+
+    <button onclick="goToTest('learning-style')">
+        Learning Style Test
+    </button> -->
+    <button id="studyBtn" onclick="window.location.href='study-habits.html'">
+        Study Habits Test <span id="studyTick" class="tick">✔</span>
+    </button>
+
+    <button id="learningBtn" onclick="window.location.href='learning-style.html'">
+        Learning Style Test <span id="learningTick" class="tick">✔</span>
+    </button>
+
+    <button id="aptitudeBtn" onclick="window.location.href='aptitude.html'">
+        Aptitude Test <span id="aptitudeTick" class="tick">✔</span>
+    </button>
+    <button id="downloadReport" class="download-btn" disabled>
+        Download Career Report
+    </button>
+
+    <p id="downloadMsg" class="info-text"></p>
+    
+</div>
+
+
+<script>
+    // get grade from URL
+    const params = new URLSearchParams(window.location.search);
+    const grade = params.get("grade");
+
+    document.getElementById("gradeInfo").innerText =
+        grade ? `Selected Grade: ${grade}` : "";
+
+    function goToTest(testType) {
+        if (testType === "aptitude") {
+            window.location.href = "aptitude.html";
+        }
+        if (testType === "study-habits") {
+            window.location.href = "study-habits.html";
+        }
+        if (testType === "learning-style") {
+            window.location.href = "learning-style.html";
+        }
+    }
+</script>
+
+<!-- marking tick when done-->
+
+<script>
+    const studyDone = localStorage.getItem("studyCompleted") === "true";
+    const learningDone = localStorage.getItem("learningCompleted") === "true";
+    const aptitudeDone = localStorage.getItem("aptitudeCompleted") === "true";
+
+    if (studyDone) {
+        document.getElementById("studyTick").style.display = "inline";
+        document.getElementById("studyBtn").disabled = true;
+    }
+
+    if (learningDone) {
+        document.getElementById("learningTick").style.display = "inline";
+        document.getElementById("learningBtn").disabled = true;
+    }
+
+    if (aptitudeDone) {
+        document.getElementById("aptitudeTick").style.display = "inline";
+        document.getElementById("aptitudeBtn").disabled = true;
+    }
+</script>
+
+<!-- marking tick when done-->
+
+<!-- logic for generating report only when all 3 tests done-->
+<!-- <script>
+    const studyDone = localStorage.getItem("studyCompleted") === "true";
+    const learningDone = localStorage.getItem("learningCompleted") === "true";
+    const aptitudeDone = localStorage.getItem("aptitudeCompleted") === "true";
+
+    const downloadBtn = document.getElementById("downloadReport");
+    const message = document.getElementById("downloadMsg");
+
+    if (studyDone && learningDone && aptitudeDone) {
+        downloadBtn.disabled = false;
+        message.textContent = "✔ All tests completed. You can download your report.";
+    } else {
+        downloadBtn.disabled = true;
+        message.textContent = "⚠ Please complete all three tests to download your report.";
+    }
+</script> -->
+<!-- logic for generating report only when all 3 tests done-->
+</body>
+</html>

@@ -82,70 +82,167 @@ button:nth-of-type(3) {
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     min-height: 100vh;
-    background: linear-gradient(135deg, #667eea, #764ba2);
+    background-color: #EFECE3;   /* soft cream */
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
+
 /* ---------- MAIN CARD ---------- */
 .container {
-    background: rgba(255, 255, 255, 0.95);
-    width: 460px;
-    padding: 45px 35px;
-    border-radius: 18px;
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+    background: #ffffff;
+    width: 500px;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.15);
     text-align: center;
-    backdrop-filter: blur(8px);
 }
+
 
 /* ---------- HEADINGS ---------- */
 .container h1 {
     font-size: 28px;
-    color: #2c3e50;
-    margin-bottom: 12px;
+    color: #4A70A9;   /* Primary */
+    margin-bottom: 10px;
 }
 
 .container p {
     font-size: 15px;
-    color: #555;
-    margin-bottom: 35px;
-    line-height: 1.5;
+    color: #000000;
+    opacity: 0.75;
+    margin-bottom: 30px;
+    line-height: 1.6;
 }
+
 
 /* ---------- BUTTONS ---------- */
 .container button {
     width: 100%;
-    padding: 15px;
+    padding: 14px;
     margin: 12px 0;
     font-size: 16px;
     font-weight: 600;
     border: none;
     border-radius: 10px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    background: #4A70A9;
     color: white;
+    transition: 0.3s ease;
 }
 
-/* Button Colors */
-.container button:nth-of-type(1) {
-    background: linear-gradient(to right, #43cea2, #185a9d);
+.container button:hover {
+    background: #3a5d8c;
+    transform: translateY(-2px);
 }
 
-.container button:nth-of-type(2) {
-    background: linear-gradient(to right, #56ccf2, #2f80ed);
+.test-container {
+    background: #ffffff;
+    width: 700px;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+}
+.test-container h1 {
+    color: #4A70A9;
+    margin-bottom: 10px;
+    text-align: center;
 }
 
-.container button:nth-of-type(3) {
-    background: linear-gradient(to right, #f7971e, #ffd200);
+.test-desc {
+    text-align: center;
+    color: #000;
+    opacity: 0.7;
+    margin-bottom: 25px;
+}
+#timer {
+    background: #8FABD4;
+    color: #000;
+    font-weight: bold;
+    padding: 10px 15px;
+    border-radius: 8px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+.question {
+    background: #EFECE3;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 18px;
+}
+
+.question p {
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+.question label {
+    margin-right: 20px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.question input {
+    margin-right: 6px;
+}
+.submit-btn {
+    width: 100%;
+    padding: 14px;
+    margin-top: 25px;
+    background: #4A70A9;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.submit-btn:hover {
+    background: #3a5d8c;
+}
+.download-btn {
+    width: 100%;
+    padding: 15px;
+    margin-top: 30px;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    border-radius: 10px;
+    background: #a9a9a9;
+    color: white;
+    cursor: not-allowed;
+    transition: 0.3s;
+}
+
+.download-btn:not(:disabled) {
+    background: linear-gradient(to right, #4a70a9, #8fabd4);
+    cursor: pointer;
+}
+
+.download-btn:not(:disabled):hover {
+    transform: translateY(-2px);
+}
+
+.info-text {
+    margin-top: 10px;
+    font-size: 14px;
+    text-align: center;
     color: #333;
 }
 
-/* Hover Effect */
-.container button:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+.tick {
+    display: none;
+    margin-left: 8px;
+    color: #2ecc71;
+    font-size: 18px;
+    font-weight: bold;
 }
+
+button:disabled {
+    background: #ccc !important;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
 
 /* ---------- RESPONSIVE ---------- */
 @media (max-width: 500px) {
@@ -154,3 +251,10 @@ body {
         padding: 35px 25px;
     }
 }
+@media (max-width: 768px) {
+    .test-container {
+        width: 90%;
+        padding: 30px;
+    }
+}
+
