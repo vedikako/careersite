@@ -143,40 +143,54 @@
     </form>
 </div>
 
-<!-- <script>
-    let timeLeft = 600; // 10 minutes
-    const timerDisplay = document.getElementById("time");
-    const form = document.getElementById("studyForm");
 
-    const timer = setInterval(() => {
-        let minutes = Math.floor(timeLeft / 60);
-        let seconds = timeLeft % 60;
-
-        timerDisplay.textContent =
-            minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
-
-        if (timeLeft <= 0) {
-            clearInterval(timer);
-            alert("Time is up! Your test will be submitted automatically.");
-            form.submit();
-        }
-
-        timeLeft--;
-    }, 1000);
-</script> -->
 
 
 <!--new script – timer + save completion + redirect -->
 
-<script>
+<!-- <script>
     let timeLeft = 600;
     const timerDisplay = document.getElementById("time");
     const form = document.getElementById("studyForm");
-
-    function submitTest() {
-        localStorage.setItem("studyCompleted", "true");
-        window.location.href = "select-test.html";
+    //changes for grouped pdf
+    function calculateStudyScore() {
+    let goodHabits = 0;
+    let totalQuestions = 20;
+    
+    // Questions where "yes" is good: 3, 5, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 20
+    const positiveQuestions = [3, 5, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 20];
+    
+    for (let i = 1; i <= totalQuestions; i++) {
+        let answer = document.querySelector(`input[name="q${i}"]:checked`)?.value;
+        
+        if (positiveQuestions.includes(i)) {
+            if (answer === "yes") goodHabits++;
+        } else {
+            if (answer === "no") goodHabits++;
+        }
     }
+    
+    let percentage = (goodHabits / totalQuestions) * 100;
+    
+    return {
+        score: goodHabits,
+        total: totalQuestions,
+        percentage: percentage.toFixed(1)
+    };
+}
+
+    // function submitTest() {
+    //     localStorage.setItem("studyCompleted", "true");
+    //     window.location.href = "select-test.html";
+    // } new func below 
+    function submitTest() {
+    // Calculate and save score
+    const result = calculateStudyScore();
+    localStorage.setItem("studyHabitsScore", JSON.stringify(result));
+    localStorage.setItem("studyCompleted", "true");
+    
+    window.location.href = "select-test.html";
+}
 
     form.addEventListener("submit", function (e) {
         e.preventDefault();
@@ -198,7 +212,9 @@
 
         timeLeft--;
     }, 1000);
-</script>
+</script> -->
+<!-- Remove the inline script and add this instead -->
+<script src="study-habits.js"></script>
 
 
 </body>

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,100 +12,63 @@
     <h1>Select Assessment Type</h1>
     <p id="gradeInfo"></p>
 
-    <!-- <button onclick="goToTest('aptitude')">
-        Aptitude Test
-    </button>
+    <!-- STUDENT DETAILS FORM (shown first time only) -->
+    <div id="studentDetailsForm" style="display: none;">
+        <div style="background: #EFECE3; padding: 25px; border-radius: 12px; margin: 25px 0; border: 2px solid #4A70A9;">
+            <h3 style="color: #4A70A9; margin-bottom: 15px; text-align: center;">📝 Enter Your Details</h3>
+            
+            <label style="font-weight: 600; color: #333; display: block; margin-top: 15px;">Name:</label>
+            <input type="text" id="studentNameInput" required 
+                   style="width: 100%; padding: 12px; margin: 8px 0; border: 2px solid #ddd; border-radius: 8px; font-size: 15px;">
+            
+            <!-- <label style="font-weight: 600; color: #333; display: block; margin-top: 15px;">Class / Stream:</label>
+            <input type="text" id="studentClassInput" required placeholder="e.g., 8th, 9th, 10th" 
+                   style="width: 100%; padding: 12px; margin: 8px 0; border: 2px solid #ddd; border-radius: 8px; font-size: 15px;">
+             -->
+            <label style="font-weight: 600; color: #333; display: block; margin-top: 15px;">Class / Stream:</label>
+            <select id="studentClassInput" required 
+                    style="width: 100%; padding: 12px; margin: 8px 0; border: 2px solid #ddd; border-radius: 8px; font-size: 15px; background: white; cursor: pointer;">
+                <option value="" disabled selected>Select your class</option>
+                <option value="8th">8th</option>
+                <option value="9th">9th</option>
+            </select>
+            <button onclick="saveStudentDetails()" 
+                    style="width: 100%; margin-top: 20px; padding: 14px; background: #4A70A9; color: white; border: none; border-radius: 10px; font-size: 16px; font-weight: 600; cursor: pointer;">
+                Save & Continue
+            </button>
+        </div>
+    </div>
 
-    <button onclick="goToTest('study-habits')">
-        Study Habits Test
-    </button>
+    <!-- TEST BUTTONS (shown after details are saved) -->
+    <div id="testButtons" style="display: none;">
+        <div style="background: #e8f4f8; padding: 15px; border-radius: 8px; margin-bottom: 20px; text-align: center;">
+            <p style="margin: 0; color: #4A70A9; font-weight: 600;">
+                Welcome, <span id="displayName"></span>! Complete all three assessments below.
+            </p>
+        </div>
 
-    <button onclick="goToTest('learning-style')">
-        Learning Style Test
-    </button> -->
-    <button id="studyBtn" onclick="window.location.href='study-habits.html'">
-        Study Habits Test <span id="studyTick" class="tick">✔</span>
-    </button>
+        <button id="studyBtn" onclick="window.location.href='study-habits.html'">
+            Study Habits Test <span id="studyTick" class="tick">✓</span>
+        </button>
 
-    <button id="learningBtn" onclick="window.location.href='learning-style.html'">
-        Learning Style Test <span id="learningTick" class="tick">✔</span>
-    </button>
+        <button id="learningBtn" onclick="window.location.href='learning-style.html'">
+            Learning Style Test <span id="learningTick" class="tick">✓</span>
+        </button>
 
-    <button id="aptitudeBtn" onclick="window.location.href='aptitude.html'">
-        Aptitude Test <span id="aptitudeTick" class="tick">✔</span>
-    </button>
-    <button id="downloadReport" class="download-btn" disabled>
-        Download Career Report
-    </button>
+        <button id="aptitudeBtn" onclick="window.location.href='aptitude.html'">
+            Aptitude Test <span id="aptitudeTick" class="tick">✓</span>
+        </button>
 
-    <p id="downloadMsg" class="info-text"></p>
+        <button id="downloadReport" class="download-btn" disabled>
+            Download Career Report
+        </button>
+
+        <p id="downloadMsg" class="info-text"></p>
+    </div>
     
 </div>
 
+<script src="select-test.js"></script>
 
-<script>
-    // get grade from URL
-    const params = new URLSearchParams(window.location.search);
-    const grade = params.get("grade");
-
-    document.getElementById("gradeInfo").innerText =
-        grade ? `Selected Grade: ${grade}` : "";
-
-    function goToTest(testType) {
-        if (testType === "aptitude") {
-            window.location.href = "aptitude.html";
-        }
-        if (testType === "study-habits") {
-            window.location.href = "study-habits.html";
-        }
-        if (testType === "learning-style") {
-            window.location.href = "learning-style.html";
-        }
-    }
-</script>
-
-<!-- marking tick when done-->
-
-<script>
-    const studyDone = localStorage.getItem("studyCompleted") === "true";
-    const learningDone = localStorage.getItem("learningCompleted") === "true";
-    const aptitudeDone = localStorage.getItem("aptitudeCompleted") === "true";
-
-    if (studyDone) {
-        document.getElementById("studyTick").style.display = "inline";
-        document.getElementById("studyBtn").disabled = true;
-    }
-
-    if (learningDone) {
-        document.getElementById("learningTick").style.display = "inline";
-        document.getElementById("learningBtn").disabled = true;
-    }
-
-    if (aptitudeDone) {
-        document.getElementById("aptitudeTick").style.display = "inline";
-        document.getElementById("aptitudeBtn").disabled = true;
-    }
-</script>
-
-<!-- marking tick when done-->
-
-<!-- logic for generating report only when all 3 tests done-->
-<!-- <script>
-    const studyDone = localStorage.getItem("studyCompleted") === "true";
-    const learningDone = localStorage.getItem("learningCompleted") === "true";
-    const aptitudeDone = localStorage.getItem("aptitudeCompleted") === "true";
-
-    const downloadBtn = document.getElementById("downloadReport");
-    const message = document.getElementById("downloadMsg");
-
-    if (studyDone && learningDone && aptitudeDone) {
-        downloadBtn.disabled = false;
-        message.textContent = "✔ All tests completed. You can download your report.";
-    } else {
-        downloadBtn.disabled = true;
-        message.textContent = "⚠ Please complete all three tests to download your report.";
-    }
-</script> -->
-<!-- logic for generating report only when all 3 tests done-->
 </body>
 </html>

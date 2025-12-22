@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Career Foundation Assessment Report</title>
+    <link rel="stylesheet" href="../style.css">
+    
+    <!-- Chart.js for graphs -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- jsPDF for PDF generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    
+    <style>
+        body {
+            background-color: #EFECE3;
+            display: block;
+            padding: 20px 0;
+        }
+
+        .report-container {
+            background: #ffffff;
+            width: 900px;
+            max-width: 95%;
+            padding: 40px;
+            margin: 30px auto;
+            border-radius: 16px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .report-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #4A70A9;
+        }
+        
+        .report-header h1 {
+            color: #4A70A9;
+            margin-bottom: 10px;
+            font-size: 32px;
+        }
+
+        .report-header p {
+            color: #666;
+            font-size: 16px;
+        }
+        
+        .student-info {
+            background: #EFECE3;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .student-info p {
+            margin: 8px 0;
+            font-size: 15px;
+            color: #000;
+        }
+
+        .student-info strong {
+            color: #4A70A9;
+            margin-right: 10px;
+        }
+        
+        .test-section {
+            margin: 40px 0;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            border-left: 5px solid #4A70A9;
+        }
+        
+        .test-section h2 {
+            color: #4A70A9;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+        
+        .rating-card {
+            background: white;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 8px;
+            border-left: 4px solid #2ecc71;
+        }
+
+        .rating-card h3 {
+            color: #2ecc71;
+            margin-bottom: 12px;
+            font-size: 20px;
+        }
+
+        .rating-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .rating-item:last-child {
+            border-bottom: none;
+        }
+
+        .rating-label {
+            font-weight: 600;
+            color: #333;
+            font-size: 15px;
+        }
+
+        .rating-value {
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .suggestions-box {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            border-left: 4px solid #FF9800;
+        }
+
+        .suggestions-box h4 {
+            color: #FF9800;
+            margin-bottom: 10px;
+        }
+
+        .suggestions-box ul {
+            margin: 10px 0;
+            padding-left: 25px;
+        }
+
+        .suggestions-box li {
+            margin: 8px 0;
+            line-height: 1.6;
+            color: #555;
+        }
+        
+        .recommendations {
+            background: #fff3cd;
+            padding: 25px;
+            border-radius: 8px;
+            margin-top: 30px;
+            border-left: 4px solid #ff9800;
+        }
+        
+        .recommendations h3 {
+            color: #ff9800;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+
+        .recommendations ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        .recommendations li {
+            margin: 10px 0;
+            line-height: 1.8;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 12px 30px;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        
+        .btn-primary {
+            background: #4A70A9;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #3a5d8c;
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
+        }
+        
+        /* Rating Colors */
+        .rating-excellent { background: #d4edda; color: #155724; }
+        .rating-very-good { background: #cfe2ff; color: #084298; }
+        .rating-good { background: #d1ecf1; color: #0c5460; }
+        .rating-average { background: #fff3cd; color: #856404; }
+        .rating-needs-improvement { background: #f8d7da; color: #721c24; }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .report-container {
+                width: 95%;
+                padding: 25px 20px;
+            }
+
+            .report-header h1 {
+                font-size: 24px;
+            }
+
+            .test-section h2 {
+                font-size: 20px;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .rating-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="report-container">
+    <div class="report-header">
+        <h1>🎓 Career Foundation Assessment Report</h1>
+        <p>Comprehensive analysis of your learning profile</p>
+    </div>
+
+    <div class="student-info">
+        <p><strong>Name:</strong> <span id="studentName">Loading...</span></p>
+        <p><strong>Class:</strong> <span id="studentClass">Loading...</span></p>
+        <p><strong>Date:</strong> <span id="reportDate"></span></p>
+    </div>
+
+    <!-- ============ STUDY HABITS SECTION ============ -->
+    <div class="test-section">
+        <h2>📚 1. Study Habits Assessment</h2>
+        <div id="studyHabitsContent">
+            <p>Loading study habits results...</p>
+        </div>
+    </div>
+
+    <!-- ============ LEARNING STYLE SECTION ============ -->
+    <div class="test-section">
+        <h2>🎨 2. Learning Style Profile</h2>
+        <div id="learningStyleContent">
+            <p>Loading learning style results...</p>
+        </div>
+    </div>
+
+    <!-- ============ APTITUDE TEST SECTION ============ -->
+    <div class="test-section">
+        <h2>📊 3. Aptitude Assessment</h2>
+        <div id="aptitudeContent">
+            <p>Loading aptitude results...</p>
+        </div>
+    </div>
+
+    <!-- ============ OVERALL RECOMMENDATIONS ============ -->
+    <div class="recommendations">
+        <h3>🎯 Personalized Recommendations</h3>
+        <div id="overallRecommendations">
+            <p>Loading recommendations...</p>
+        </div>
+    </div>
+
+    <div class="action-buttons">
+        <button class="btn btn-primary" onclick="window.print()">
+            📥 Print / Save as PDF
+        </button>
+        <button class="btn btn-secondary" onclick="window.location.href='select-test.html'">
+            🔙 Back to Tests
+        </button>
+    </div>
+</div>
+
+<!-- Link to external JavaScript file -->
+<script src="combined-report.js"></script>
+
+</body>
+</html>
