@@ -1,264 +1,3 @@
-// // Load student info
-// document.getElementById("studentName").textContent = localStorage.getItem("student_name") || "N/A";
-// document.getElementById("studentClass").textContent = localStorage.getItem("student_class") || "N/A";
-// document.getElementById("reportDate").textContent = new Date().toLocaleDateString('en-US', { 
-//     year: 'numeric', 
-//     month: 'long', 
-//     day: 'numeric' 
-// });
-
-// // ============ HELPER FUNCTIONS ============
-
-// function getRatingClass(rating) {
-//     const ratingLower = rating.toLowerCase().replace(/\s+/g, '-');
-//     return `rating-${ratingLower}`;
-// }
-
-// function createRatingItem(label, rating) {
-//     return `
-//         <div class="rating-item">
-//             <span class="rating-label">${label}</span>
-//             <span class="rating-value ${getRatingClass(rating)}">${rating}</span>
-//         </div>
-//     `;
-// }
-
-// // ============ STUDY HABITS ============
-// const studyData = JSON.parse(localStorage.getItem("studyHabitsScore"));
-
-// if (studyData) {
-//     let studyHTML = `
-//         <div class="rating-card">
-//             <h3>Your Study Habits Assessment</h3>
-//             <p style="margin-bottom: 15px; color: #666;">You have been assessed in the following areas:</p>
-//             ${createRatingItem("Overall Performance", studyData.overallRating)}
-//             ${studyData.categories ? `
-//                 ${createRatingItem("Learning Techniques", studyData.categories.learning)}
-//                 ${createRatingItem("Memory", studyData.categories.memory)}
-//                 ${createRatingItem("Examination Techniques", studyData.categories.examination)}
-//                 ${createRatingItem("Concentration", studyData.categories.concentration)}
-//             ` : ''}
-//         </div>
-        
-//         <div class="suggestions-box">
-//             <h4>Suggestions for Improvement</h4>
-//             ${getStudyHabitsSuggestions(studyData)}
-//         </div>
-//     `;
-    
-//     document.getElementById("studyHabitsContent").innerHTML = studyHTML;
-// }
-
-// // ============ LEARNING STYLE ============
-// const learningData = JSON.parse(localStorage.getItem("learningStyleScore"));
-
-// if (learningData) {
-//     let learningHTML = `
-//         <div class="rating-card">
-//             <h3>Your Primary Learning Style: ${learningData.description}</h3>
-//             <p style="color: #666; margin-top: 10px;">
-//                 You learn best through ${learningData.primary.toLowerCase()} methods. 
-//                 ${learningData.styles.length > 1 ? 
-//                     `You also show strong preferences for ${learningData.styles.filter(s => s !== learningData.primary).join(' and ').toLowerCase()} learning.` 
-//                     : ''}
-//             </p>
-//         </div>
-        
-//         <div class="suggestions-box">
-//             <h4>Learning Strategies for You</h4>
-//             ${getLearningStyleSuggestions(learningData)}
-//         </div>
-//     `;
-    
-//     document.getElementById("learningStyleContent").innerHTML = learningHTML;
-// }
-
-// // ============ APTITUDE ============
-// const aptitudeRatings = JSON.parse(localStorage.getItem("aptitude_ratings"));
-
-// if (aptitudeRatings) {
-//     let aptitudeHTML = `
-//         <div class="rating-card">
-//             <h3>Your Aptitude Assessment</h3>
-//             <p style="margin-bottom: 15px; color: #666;">Your performance in different reasoning abilities:</p>
-//             ${createRatingItem("Overall Aptitude", aptitudeRatings.overall)}
-//             ${createRatingItem("Numerical Reasoning", aptitudeRatings.numerical)}
-//             ${createRatingItem("Logical Reasoning", aptitudeRatings.logical)}
-//             ${createRatingItem("Pattern Recognition", aptitudeRatings.pattern)}
-//             ${createRatingItem("Verbal Reasoning", aptitudeRatings.verbal)}
-//         </div>
-        
-//         <div class="suggestions-box">
-//             <h4>Tips for Enhancement</h4>
-//             ${getAptitudeSuggestions(aptitudeRatings)}
-//         </div>
-//     `;
-    
-//     document.getElementById("aptitudeContent").innerHTML = aptitudeHTML;
-// }
-
-// // ============ OVERALL RECOMMENDATIONS ============
-// document.getElementById("overallRecommendations").innerHTML = generateOverallRecommendations(studyData, learningData, aptitudeRatings);
-
-// // ============ SUGGESTION FUNCTIONS ============
-
-// function getStudyHabitsSuggestions(data) {
-//     let suggestions = "<ul>";
-    
-//     if (data.overallRating === "Needs Improvement" || data.overallRating === "Average") {
-//         suggestions += `
-//             <li><strong>Time Management:</strong> Create a daily/weekly planner to organize your study activities. Prepare and follow a 'To Do List' to plan important study activities in advance.</li>
-//             <li><strong>Reading Techniques:</strong> Read early in the day when your mind is clear and sharp. Your grasping power is at its best during this time.</li>
-//             <li><strong>Active Learning:</strong> Discuss what you have learned in the classroom with your friends. This gives you better clarity and helps retain information for a longer period.</li>
-//         `;
-//     }
-    
-//     if (data.categories) {
-//         if (data.categories.concentration === "Needs Improvement" || data.categories.concentration === "Average") {
-//             suggestions += `
-//                 <li><strong>Improve Concentration:</strong> Practice meditation, yoga, or simple breathing exercises to improve focus. Avoid studying when attention is persistently wandering.</li>
-//                 <li><strong>Minimize Distractions:</strong> Focus on one activity at a time. Avoid studying while watching television or using your phone.</li>
-//             `;
-//         }
-        
-//         if (data.categories.memory === "Needs Improvement" || data.categories.memory === "Average") {
-//             suggestions += `
-//                 <li><strong>Memory Techniques:</strong> Use mnemonics such as acronyms, acrostics, and narrative methods to improve memorization.</li>
-//                 <li><strong>Visual Imagery:</strong> Visualize procedures and techniques in your mind's eye to help retain them in memory over long periods.</li>
-//                 <li><strong>Regular Revision:</strong> Review notes daily for 10-15 minutes to improve retention and understanding.</li>
-//             `;
-//         }
-        
-//         if (data.categories.examination === "Needs Improvement" || data.categories.examination === "Average") {
-//             suggestions += `
-//                 <li><strong>Exam Preparation:</strong> Devote more attention to weak areas. Stay healthy, take enough rest, and avoid over-studying.</li>
-//                 <li><strong>During Examination:</strong> Glance over the test format first. Read instructions completely and plan your time accordingly. Answer easier questions first.</li>
-//             `;
-//         }
-//     }
-    
-//     suggestions += `
-//         <li><strong>Healthy Habits:</strong> Have nutritious food and drink plenty of water. Include physical activity in your daily schedule and ensure sufficient rest.</li>
-//     `;
-    
-//     suggestions += "</ul>";
-//     return suggestions;
-// }
-
-// function getLearningStyleSuggestions(data) {
-//     let suggestions = "<ul>";
-    
-//     data.styles.forEach(style => {
-//         if (style === "Visual") {
-//             suggestions += `
-//                 <li><strong>Visual Learning Techniques:</strong> Use images, pictures, colors, and other visual media to help you learn. Try to find diagrams, sketches, photographs, and flow charts of course material.</li>
-//                 <li><strong>Mind Maps and Graphics:</strong> Use mind maps with colors and pictures in place of text wherever possible. Illustrate your notes with images and graphs.</li>
-//                 <li><strong>Visual Technology:</strong> Take advantage of visual elements of the computer when studying or locating information.</li>
-//             `;
-//         }
-        
-//         if (style === "Auditory") {
-//             suggestions += `
-//                 <li><strong>Auditory Learning Techniques:</strong> Study with a friend so you can talk about the information and hear it. Participate actively in class discussions and debates.</li>
-//                 <li><strong>Reading Aloud:</strong> Read text aloud whenever possible. You need to hear the words as you read them to understand them well.</li>
-//                 <li><strong>Recording and Repetition:</strong> Use a tape recorder and replay the information. Recite information over and over to better memorize material.</li>
-//             `;
-//         }
-        
-//         if (style === "Kinesthetic") {
-//             suggestions += `
-//                 <li><strong>Hands-On Learning:</strong> Try to memorize by walking around while reciting to yourself. Use hands-on activities such as experiments, models, and practical work.</li>
-//                 <li><strong>Active Study Breaks:</strong> Take frequent breaks during study sessions (15-25 minutes of study, 3-5 minutes of break). Use the break time for physical movement.</li>
-//                 <li><strong>Interactive Materials:</strong> When learning new information, make task cards, flashcards, or card games. Create things with your hands to help process information.</li>
-//                 <li><strong>Physical Engagement:</strong> Use breathing and relaxation techniques while you learn and perform. Focus on staying calm, centered, and aware.</li>
-//             `;
-//         }
-//     });
-    
-//     suggestions += "</ul>";
-//     return suggestions;
-// }
-
-// function getAptitudeSuggestions(ratings) {
-//     let suggestions = "<ul>";
-    
-//     if (ratings.numerical === "Needs Improvement" || ratings.numerical === "Average") {
-//         suggestions += `
-//             <li><strong>Numerical Skills Development:</strong> Practice mental arithmetic daily - addition, subtraction, multiplication, and division with accuracy. Try to recite tables in random order.</li>
-//             <li><strong>Mathematical Foundations:</strong> Improve your understanding of the basic principles of mathematics. Allot more time for practice of numerical problems.</li>
-//         `;
-//     }
-    
-//     if (ratings.logical === "Needs Improvement" || ratings.logical === "Average") {
-//         suggestions += `
-//             <li><strong>Logical Thinking:</strong> Practice step-by-step thinking. Solve brain teasers and play mathematical computation games regularly.</li>
-//             <li><strong>Problem Analysis:</strong> Work on developing your analytical and reasoning skills through puzzles and logic problems.</li>
-//         `;
-//     }
-    
-//     if (ratings.pattern === "Needs Improvement" || ratings.pattern === "Average") {
-//         suggestions += `
-//             <li><strong>Pattern Recognition:</strong> Practice identifying patterns in number sequences, visual designs, and data series. Dedicate time daily to sequence-based problems.</li>
-//         `;
-//     }
-    
-//     if (ratings.verbal === "Needs Improvement" || ratings.verbal === "Average") {
-//         suggestions += `
-//             <li><strong>Vocabulary Building:</strong> Learn new words every day and use them in sentences. Keep notes and make up stories to practice language skills.</li>
-//             <li><strong>Reading and Writing:</strong> Play vocabulary games, solve puzzles and crosswords. Practice answering questions starting with who, what, where, why, when, and how.</li>
-//             <li><strong>Word Games:</strong> Play games about synonyms (words with the same meaning) and antonyms (words that mean the opposite).</li>
-//         `;
-//     }
-    
-//     if (ratings.overall === "Good" || ratings.overall === "Excellent") {
-//         suggestions += `
-//             <li><strong>Maintain Excellence:</strong> Continue practicing regularly to maintain and further enhance your strong performance. Challenge yourself with advanced problems.</li>
-//         `;
-//     }
-    
-//     suggestions += "</ul>";
-//     return suggestions;
-// }
-
-// function generateOverallRecommendations(studyData, learningData, aptitudeRatings) {
-//     let recs = "<ul style='line-height: 1.8;'>";
-    
-//     // Key recommendations based on overall performance
-//     if (studyData && (studyData.overallRating === "Average" || studyData.overallRating === "Needs Improvement")) {
-//         recs += "<li>Develop a consistent study routine with specific time slots for different subjects and stick to it daily.</li>";
-//     }
-    
-//     if (aptitudeRatings && (aptitudeRatings.overall === "Average" || aptitudeRatings.overall === "Needs Improvement")) {
-//         recs += "<li>Dedicate 20-30 minutes daily to aptitude practice, focusing on problem-solving and analytical thinking.</li>";
-//     }
-    
-//     if (learningData) {
-//         recs += `<li>Utilize ${learningData.primary.toLowerCase()} learning methods as they align best with your natural learning style.</li>`;
-//     }
-    
-//     // Universal recommendations
-//     recs += `
-//         <li>Balance your academic commitments with physical activities, hobbies, and adequate rest for overall development.</li>
-//         <li>Maintain a positive attitude towards learning. View challenges as opportunities for growth rather than obstacles.</li>
-//         <li>Seek guidance from teachers, parents, or school counselors whenever you face difficulties in understanding concepts.</li>
-//         <li>Manage screen time effectively. Limit social media and entertainment during designated study hours.</li>
-//         <li>Set specific, measurable, achievable goals for each study session and track your progress regularly.</li>
-//         <li>Participate in extracurricular activities to develop social skills, teamwork, and leadership abilities alongside academics.</li>
-//     `;
-    
-//     recs += "</ul>";
-    
-//     recs += `
-//         <p style="margin-top: 20px; padding: 15px; background: #e3f2fd; border-radius: 8px; color: #1565c0; line-height: 1.6;">
-//             <strong>Important Note:</strong> This assessment provides insights into your current academic foundation and learning preferences. 
-//             Use these findings to develop effective study strategies and work habits. Remember that consistent effort, 
-//             proper guidance, and a positive mindset are key factors in achieving academic excellence. Your potential for 
-//             growth is significant at this stage, and these foundational years will shape your future academic journey.
-//         </p>
-//     `;
-    
-//     return recs;
-// }
 // Load student info
 document.getElementById("studentName").textContent = localStorage.getItem("student_name") || "N/A";
 document.getElementById("studentClass").textContent = localStorage.getItem("student_class") || "N/A";
@@ -329,10 +68,7 @@ if (studyData) {
             <canvas id="studyChart" width="400" height="250"></canvas>
         </div>
         
-        <div class="suggestions-box">
-            <h4>Suggestions for Improvement</h4>
-            ${getStudyHabitsSuggestions(studyData)}
-        </div>
+        ${getStudyHabitsAnalysis(studyData)}
     `;
     
     document.getElementById("studyHabitsContent").innerHTML = studyHTML;
@@ -353,7 +89,7 @@ if (learningData) {
             <p style="color: #666; margin-top: 10px;">
                 You learn best through ${learningData.primary.toLowerCase()} methods. 
                 ${learningData.styles.length > 1 ? 
-                    `You also show strong preferences for ${learningData.styles.filter(s => s !== learningData.primary).join(' and ').toLowerCase()} learning .` 
+                    `You also show strong preferences for ${learningData.styles.filter(s => s !== learningData.primary).join(' and ').toLowerCase()} learning.` 
                     : ''}
             </p>
         </div>
@@ -362,10 +98,7 @@ if (learningData) {
             <canvas id="learningChart" width="400" height="250"></canvas>
         </div>
         
-        <div class="suggestions-box">
-            <h4>Learning Strategies for You</h4>
-            ${getLearningStyleSuggestions(learningData)}
-        </div>
+        ${getLearningStyleAnalysis(learningData)}
     `;
     
     document.getElementById("learningStyleContent").innerHTML = learningHTML;
@@ -391,10 +124,7 @@ if (aptitudeRatings) {
             <canvas id="aptitudeChart" width="400" height="250"></canvas>
         </div>
         
-        <div class="suggestions-box">
-            <h4>Tips for Enhancement</h4>
-            ${getAptitudeSuggestions(aptitudeRatings)}
-        </div>
+        ${getAptitudeAnalysis(aptitudeRatings)}
     `;
     
     document.getElementById("aptitudeContent").innerHTML = aptitudeHTML;
@@ -407,7 +137,7 @@ function createStudyHabitsChart(data) {
     const ctx = document.getElementById("studyChart");
     if (!ctx) return;
     
-    const labels = ["Learning Techniques", "Memory ", "Examination Techniques", "Concentration"];
+    const labels = ["Learning", "Memory", "Examination", "Concentration"];
     const ratings = [
         data.categories.learning,
         data.categories.memory,
@@ -626,163 +356,224 @@ function createAptitudeChart(ratings) {
     });
 }
 
-// ============ OVERALL RECOMMENDATIONS ============
-document.getElementById("overallRecommendations").innerHTML = generateOverallRecommendations(studyData, learningData, aptitudeRatings);
+// ============ ANALYSIS FUNCTIONS (Based on Graph Results) ============
 
-// ============ SUGGESTION FUNCTIONS ============
-
-function getStudyHabitsSuggestions(data) {
-    let suggestions = "<ul>";
+function getStudyHabitsAnalysis(data) {
+    let strengths = [];
+    let improvements = [];
     
-    if (data.overallRating === "Needs Improvement" || data.overallRating === "Average") {
-        suggestions += `
-            <li><strong>Time Management:</strong> Create a daily/weekly planner to organize your study activities. Prepare and follow a 'To Do List' to plan important study activities in advance.</li>
-            <li><strong>Reading Techniques:</strong> Read early in the day when your mind is clear and sharp. Your grasping power is at its best during this time.</li>
-            <li><strong>Active Learning:</strong> Discuss what you have learned in the classroom with your friends. This gives you better clarity and helps retain information for a longer period.</li>
+    // Analyze each category
+    const categories = {
+        'Learning Techniques': data.categories.learning,
+        'Memory': data.categories.memory,
+        'Examination Techniques': data.categories.examination,
+        'Concentration': data.categories.concentration
+    };
+    
+    for (let [area, rating] of Object.entries(categories)) {
+        if (rating === "Excellent" || rating === "Very Good") {
+            strengths.push(area);
+        } else if (rating === "Average" || rating === "Needs Improvement") {
+            improvements.push({area, rating});
+        }
+    }
+    
+    let html = '';
+    
+    // Strengths section
+    if (strengths.length > 0) {
+        html += `
+            <div class="strengths-box">
+                <h4>Your Strengths</h4>
+                <ul>
         `;
+        
+        strengths.forEach(area => {
+            if (area === "Learning Techniques") {
+                html += `<li><strong>${area}:</strong> You have excellent methods for absorbing and processing information. Continue using these effective techniques and share them with peers.</li>`;
+            } else if (area === "Memory") {
+                html += `<li><strong>${area}:</strong> Your memory retention is strong. This is a valuable asset - leverage it by connecting new information to what you already know.</li>`;
+            } else if (area === "Examination Techniques") {
+                html += `<li><strong>${area}:</strong> You perform well under exam pressure. Maintain your calm approach and time management skills during assessments.</li>`;
+            } else if (area === "Concentration") {
+                html += `<li><strong>${area}:</strong> Your ability to focus is commendable. Use this strength during difficult topics that require deep thinking.</li>`;
+            }
+        });
+        
+        html += `</ul></div>`;
     }
     
-    if (data.categories) {
-        if (data.categories.concentration === "Needs Improvement" || data.categories.concentration === "Average") {
-            suggestions += `
-                <li><strong>Improve Concentration:</strong> Practice meditation, yoga, or simple breathing exercises to improve focus. Avoid studying when attention is persistently wandering.</li>
-                <li><strong>Minimize Distractions:</strong> Focus on one activity at a time. Avoid studying while watching television or using your phone.</li>
-            `;
-        }
+    // Improvements section
+    if (improvements.length > 0) {
+        html += `
+            <div class="suggestions-box">
+                <h4>Areas for Improvement</h4>
+                <ul>
+        `;
         
-        if (data.categories.memory === "Needs Improvement" || data.categories.memory === "Average") {
-            suggestions += `
-                <li><strong>Memory Techniques:</strong> Use mnemonics such as acronyms, acrostics, and narrative methods to improve memorization.</li>
-                <li><strong>Visual Imagery:</strong> Visualize procedures and techniques in your mind's eye to help retain them in memory over long periods.</li>
-                <li><strong>Regular Revision:</strong> Review notes daily for 10-15 minutes to improve retention and understanding.</li>
-            `;
-        }
+        improvements.forEach(item => {
+            if (item.area === "Learning Techniques") {
+                html += `<li><strong>${item.area} (${item.rating}):</strong> Experiment with different study methods - try the Pomodoro technique (25 minutes study, 5 minutes break). Create a structured daily study schedule and follow it consistently.</li>`;
+            } else if (item.area === "Memory") {
+                html += `<li><strong>${item.area} (${item.rating}):</strong> Use memory techniques like mnemonics, acronyms (e.g., VIBGYOR for rainbow colors), and visual imagery. Review notes within 24 hours of learning - this dramatically improves retention.</li>`;
+            } else if (item.area === "Examination Techniques") {
+                html += `<li><strong>${item.area} (${item.rating}):</strong> Practice with previous year papers under timed conditions. Before exams, glance through the paper first, then tackle easier questions to build confidence. Avoid cramming the night before.</li>`;
+            } else if (item.area === "Concentration") {
+                html += `<li><strong>${item.area} (${item.rating}):</strong> Create a distraction-free study zone. Keep your phone in another room during study time. Practice 10-minute meditation daily to improve focus. Take short breaks every 25-30 minutes.</li>`;
+            }
+        });
         
-        if (data.categories.examination === "Needs Improvement" || data.categories.examination === "Average") {
-            suggestions += `
-                <li><strong>Exam Preparation:</strong> Devote more attention to weak areas. Stay healthy, take enough rest, and avoid over-studying.</li>
-                <li><strong>During Examination:</strong> Glance over the test format first. Read instructions completely and plan your time accordingly. Answer easier questions first.</li>
-            `;
-        }
+        html += `</ul></div>`;
     }
     
-    suggestions += `
-        <li><strong>Healthy Habits:</strong> Have nutritious food and drink plenty of water. Include physical activity in your daily schedule and ensure sufficient rest.</li>
-    `;
-    
-    suggestions += "</ul>";
-    return suggestions;
+    return html;
 }
 
-function getLearningStyleSuggestions(data) {
-    let suggestions = "<ul>";
+function getLearningStyleAnalysis(data) {
+    let html = '';
+    
+    // Strengths based on dominant style
+    html += `<div class="strengths-box"><h4>Your Learning Strengths</h4><ul>`;
     
     data.styles.forEach(style => {
         if (style === "Visual") {
-            suggestions += `
-                <li><strong>Visual Learning Techniques:</strong> Use images, pictures, colors, and other visual media to help you learn. Try to find diagrams, sketches, photographs, and flow charts of course material.</li>
-                <li><strong>Mind Maps and Graphics:</strong> Use mind maps with colors and pictures in place of text wherever possible. Illustrate your notes with images and graphs.</li>
-                <li><strong>Visual Technology:</strong> Take advantage of visual elements of the computer when studying or locating information.</li>
+            html += `<li><strong>Visual Learning:</strong> You excel at learning through diagrams, charts, and visual representations. Your ability to "see" concepts gives you an advantage in subjects like geometry, biology diagrams, and data interpretation.</li>`;
+        } else if (style === "Auditory") {
+            html += `<li><strong>Auditory Learning:</strong> You learn effectively through listening and discussion. Your strength in verbal processing helps you in languages, presentations, and understanding lectures.</li>`;
+        } else if (style === "Kinesthetic") {
+            html += `<li><strong>Kinesthetic Learning:</strong> You learn best through hands-on experience and physical activity. This gives you an advantage in practicals, experiments, and project-based learning.</li>`;
+        }
+    });
+    
+    html += `</ul></div>`;
+    
+    // Suggestions to maximize learning style
+    html += `<div class="suggestions-box"><h4>How to Maximize Your Learning</h4><ul>`;
+    
+    data.styles.forEach(style => {
+        if (style === "Visual") {
+            html += `
+                <li><strong>For Visual Learners:</strong> Always create mind maps, flowcharts, or diagrams when studying. Use color-coding extensively - different colors for different topics, formulas, or concepts. Watch educational videos on YouTube for complex topics.</li>
             `;
         }
         
         if (style === "Auditory") {
-            suggestions += `
-                <li><strong>Auditory Learning Techniques:</strong> Study with a friend so you can talk about the information and hear it. Participate actively in class discussions and debates.</li>
-                <li><strong>Reading Aloud:</strong> Read text aloud whenever possible. You need to hear the words as you read them to understand them well.</li>
-                <li><strong>Recording and Repetition:</strong> Use a tape recorder and replay the information. Recite information over and over to better memorize material.</li>
+            html += `
+                <li><strong>For Auditory Learners:</strong> Record yourself explaining concepts and listen back. Form study groups where you can discuss and debate topics. Read important notes aloud. Use audio lessons and podcasts for learning.</li>
             `;
         }
         
         if (style === "Kinesthetic") {
-            suggestions += `
-                <li><strong>Hands-On Learning:</strong> Try to memorize by walking around while reciting to yourself. Use hands-on activities such as experiments, models, and practical work.</li>
-                <li><strong>Active Study Breaks:</strong> Take frequent breaks during study sessions (15-25 minutes of study, 3-5 minutes of break). Use the break time for physical movement.</li>
-                <li><strong>Interactive Materials:</strong> When learning new information, make task cards, flashcards, or card games. Create things with your hands to help process information.</li>
-                <li><strong>Physical Engagement:</strong> Use breathing and relaxation techniques while you learn and perform. Focus on staying calm, centered, and aware.</li>
+            html += `
+                <li><strong>For Kinesthetic Learners:</strong> Build models, conduct experiments, or use flashcards you can physically handle. Walk around while memorizing. Take frequent movement breaks. Use real-world applications to understand abstract concepts.</li>
             `;
         }
     });
     
-    suggestions += "</ul>";
-    return suggestions;
+    html += `</ul></div>`;
+    
+    return html;
 }
 
-function getAptitudeSuggestions(ratings) {
-    let suggestions = "<ul>";
+function getAptitudeAnalysis(ratings) {
+    let strengths = [];
+    let improvements = [];
     
-    if (ratings.numerical === "Needs Improvement" || ratings.numerical === "Average") {
-        suggestions += `
-            <li><strong>Numerical Skills Development:</strong> Practice mental arithmetic daily - addition, subtraction, multiplication, and division with accuracy. Try to recite tables in random order.</li>
-            <li><strong>Mathematical Foundations:</strong> Improve your understanding of the basic principles of mathematics. Allot more time for practice of numerical problems.</li>
-        `;
+    const areas = {
+        'Numerical Reasoning': ratings.numerical,
+        'Logical Reasoning': ratings.logical,
+        'Pattern Recognition': ratings.pattern,
+        'Verbal Reasoning': ratings.verbal
+    };
+    
+    for (let [area, rating] of Object.entries(areas)) {
+        if (rating === "Excellent" || rating === "Very Good" || rating === "Good") {
+            strengths.push({area, rating});
+        } else {
+            improvements.push({area, rating});
+        }
     }
     
-    if (ratings.logical === "Needs Improvement" || ratings.logical === "Average") {
-        suggestions += `
-            <li><strong>Logical Thinking:</strong> Practice step-by-step thinking. Solve brain teasers and play mathematical computation games regularly.</li>
-            <li><strong>Problem Analysis:</strong> Work on developing your analytical and reasoning skills through puzzles and logic problems.</li>
-        `;
+    let html = '';
+    
+    // Strengths section
+    if (strengths.length > 0) {
+        html += `<div class="strengths-box"><h4>Your Aptitude Strengths</h4><ul>`;
+        
+        strengths.forEach(item => {
+            if (item.area === "Numerical Reasoning") {
+                html += `<li><strong>${item.area} (${item.rating}):</strong> You have strong mathematical and numerical skills. This strength opens doors to careers in engineering, finance, data science, and scientific research. Continue challenging yourself with complex problems.</li>`;
+            } else if (item.area === "Logical Reasoning") {
+                html += `<li><strong>${item.area} (${item.rating}):</strong> Your logical thinking ability is a valuable asset. You can break down complex problems systematically. This skill is crucial for programming, law, strategy, and analytical fields.</li>`;
+            } else if (item.area === "Pattern Recognition") {
+                html += `<li><strong>${item.area} (${item.rating}):</strong> You excel at identifying patterns and sequences. This skill is valuable in fields like data analysis, research, and problem-solving roles. Keep practicing to sharpen this further.</li>`;
+            } else if (item.area === "Verbal Reasoning") {
+                html += `<li><strong>${item.area} (${item.rating}):</strong> Your language and comprehension skills are strong. This advantage helps in communication, writing, teaching, law, and liberal arts. Your ability to express ideas clearly is a professional asset.</li>`;
+            }
+        });
+        
+        html += `</ul></div>`;
     }
     
-    if (ratings.pattern === "Needs Improvement" || ratings.pattern === "Average") {
-        suggestions += `
-            <li><strong>Pattern Recognition:</strong> Practice identifying patterns in number sequences, visual designs, and data series. Dedicate time daily to sequence-based problems.</li>
-        `;
+    // Improvements section
+    if (improvements.length > 0) {
+        html += `<div class="suggestions-box"><h4>Areas for Development</h4><ul>`;
+        
+        improvements.forEach(item => {
+            if (item.area === "Numerical Reasoning") {
+                html += `<li><strong>${item.area} (${item.rating}):</strong> Practice basic arithmetic daily - mental math for 10 minutes. Solve 5-10 numerical problems from your textbook every day. Learn multiplication tables thoroughly and practice percentage calculations. Use apps like Khan Academy for additional practice.</li>`;
+            } else if (item.area === "Logical Reasoning") {
+                html += `<li><strong>${item.area} (${item.rating}):</strong> Solve puzzles like Sudoku, chess problems, or brain teasers daily. Practice "if-then" reasoning questions. Break complex problems into smaller steps. Ask "why" questions to develop analytical thinking.</li>`;
+            } else if (item.area === "Pattern Recognition") {
+                html += `<li><strong>${item.area} (${item.rating}):</strong> Practice number sequences and series problems regularly. Look for patterns in everyday life - music, art, nature. Solve pattern-based questions from competitive exam books. Start with simple patterns and gradually increase difficulty.</li>`;
+            } else if (item.area === "Verbal Reasoning") {
+                html += `<li><strong>${item.area} (${item.rating}):</strong> Read one article or story daily and summarize it. Learn 5 new words each day with meanings and usage. Practice synonyms and antonyms. Solve vocabulary-based puzzles. Write short paragraphs to improve expression.</li>`;
+            }
+        });
+        
+        html += `</ul></div>`;
     }
     
-    if (ratings.verbal === "Needs Improvement" || ratings.verbal === "Average") {
-        suggestions += `
-            <li><strong>Vocabulary Building:</strong> Learn new words every day and use them in sentences. Keep notes and make up stories to practice language skills.</li>
-            <li><strong>Reading and Writing:</strong> Play vocabulary games, solve puzzles and crosswords. Practice answering questions starting with who, what, where, why, when, and how.</li>
-            <li><strong>Word Games:</strong> Play games about synonyms (words with the same meaning) and antonyms (words that mean the opposite).</li>
-        `;
-    }
-    
-    if (ratings.overall === "Good" || ratings.overall === "Excellent") {
-        suggestions += `
-            <li><strong>Maintain Excellence:</strong> Continue practicing regularly to maintain and further enhance your strong performance. Challenge yourself with advanced problems.</li>
-        `;
-    }
-    
-    suggestions += "</ul>";
-    return suggestions;
+    return html;
 }
+
+// ============ OVERALL RECOMMENDATIONS ============
+document.getElementById("overallRecommendations").innerHTML = generateOverallRecommendations(studyData, learningData, aptitudeRatings);
 
 function generateOverallRecommendations(studyData, learningData, aptitudeRatings) {
     let recs = "<ul style='line-height: 1.8;'>";
     
-    // Key recommendations based on overall performance
+    // Customized recommendations based on results
     if (studyData && (studyData.overallRating === "Average" || studyData.overallRating === "Needs Improvement")) {
-        recs += "<li>Develop a consistent study routine with specific time slots for different subjects and stick to it daily.</li>";
+        recs += "<li>Focus on developing a structured daily routine. Consistency in study habits is more important than long study hours. Aim for regular, focused sessions rather than last-minute cramming.</li>";
     }
     
     if (aptitudeRatings && (aptitudeRatings.overall === "Average" || aptitudeRatings.overall === "Needs Improvement")) {
-        recs += "<li>Dedicate 20-30 minutes daily to aptitude practice, focusing on problem-solving and analytical thinking.</li>";
+        recs += "<li>Dedicate 20-30 minutes daily specifically to aptitude practice. Work on your weaker areas systematically - small daily improvements lead to significant long-term gains.</li>";
     }
     
     if (learningData) {
-        recs += `<li>Utilize ${learningData.primary.toLowerCase()} learning methods as they align best with your natural learning style.</li>`;
+        recs += `<li>Your ${learningData.primary.toLowerCase()} learning style is your natural strength. Use this to your advantage by adapting your study methods accordingly. Don't force yourself to study in ways that don't suit you.</li>`;
     }
     
-    // Universal recommendations
+    // Universal evidence-based recommendations
     recs += `
-        <li>Balance your academic commitments with physical activities, hobbies, and adequate rest for overall development.</li>
-        <li>Maintain a positive attitude towards learning. View challenges as opportunities for growth rather than obstacles.</li>
-        <li>Seek guidance from teachers, parents, or school counselors whenever you face difficulties in understanding concepts.</li>
-        <li>Manage screen time effectively. Limit social media and entertainment during designated study hours.</li>
-        <li>Set specific, measurable, achievable goals for each study session and track your progress regularly.</li>
-        <li>Participate in extracurricular activities to develop social skills, teamwork, and leadership abilities alongside academics.</li>
+        <li>Maintain a balanced lifestyle: 8 hours of sleep, regular physical activity, and nutritious meals significantly improve learning capacity and memory retention.</li>
+        <li>Practice active recall instead of passive reading. After studying a topic, close your book and try to explain it in your own words or write down what you remember.</li>
+        <li>Use the spaced repetition technique: Review new information after 1 day, then after 3 days, then after 7 days. This dramatically improves long-term retention.</li>
+        <li>Don't hesitate to ask questions in class or seek help from teachers. Understanding concepts clearly now prevents confusion later.</li>
+        <li>Limit screen time during study hours. Keep your phone in another room and use website blockers if needed. Even brief distractions can break your concentration significantly.</li>
+        <li>Participate in extracurricular activities that interest you. These develop important soft skills like teamwork, leadership, and communication while providing necessary mental breaks from academics.</li>
     `;
     
     recs += "</ul>";
     
     recs += `
         <p style="margin-top: 20px; padding: 15px; background: #e3f2fd; border-radius: 8px; color: #1565c0; line-height: 1.6;">
-            <strong>Important Note:</strong> This assessment provides insights into your current academic foundation and learning preferences. 
-            Use these findings to develop effective study strategies and work habits. Remember that consistent effort, 
-            proper guidance, and a positive mindset are key factors in achieving academic excellence. Your potential for 
-            growth is significant at this stage, and these foundational years will shape your future academic journey.
+            <strong>Important Note:</strong> This assessment provides a snapshot of your current abilities and learning preferences. 
+            Remember that abilities can be developed with consistent effort and proper guidance. Your performance today does not limit your potential tomorrow. 
+            Focus on steady improvement, maintain a positive attitude, and seek support when needed. These foundational years are crucial for building 
+            habits and skills that will serve you throughout your academic and professional journey.
         </p>
     `;
     

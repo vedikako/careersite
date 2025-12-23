@@ -22,28 +22,39 @@
             background: #ffffff;
             width: 900px;
             max-width: 95%;
-            padding: 40px;
+            padding: 0;
             margin: 30px auto;
             border-radius: 16px;
             box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+            border: 3px solid #4A70A9;
+            overflow: hidden;
         }
         
-        .report-header {
-            text-align: center;
-            margin-bottom: 40px;
-            padding-bottom: 20px;
-            border-bottom: 3px solid #4A70A9;
-        }
-        
-        .report-header h1 {
-            color: #4A70A9;
-            margin-bottom: 10px;
-            font-size: 32px;
+        /* Report Header Bar */
+        .report-header-bar {
+            background: linear-gradient(135deg, #4A70A9 0%, #8FABD4 100%);
+            padding: 25px 40px;
+            color: white;
+            border-bottom: 3px solid #3a5d8c;
         }
 
-        .report-header p {
-            color: #666;
-            font-size: 16px;
+        .report-header-bar h1 {
+            color: white !important;
+            margin: 0;
+            font-size: 28px;
+            text-align: center;
+        }
+
+        .report-header-bar p {
+            color: rgba(255, 255, 255, 0.9) !important;
+            margin: 5px 0 0 0;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        /* Report Content Area */
+        .report-content {
+            padding: 40px;
         }
         
         .student-info {
@@ -140,6 +151,30 @@
             line-height: 1.6;
             color: #555;
         }
+
+        .strengths-box {
+            background: #e8f5e9;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            border-left: 4px solid #2ecc71;
+        }
+
+        .strengths-box h4 {
+            color: #2ecc71;
+            margin-bottom: 10px;
+        }
+
+        .strengths-box ul {
+            margin: 10px 0;
+            padding-left: 25px;
+        }
+
+        .strengths-box li {
+            margin: 8px 0;
+            line-height: 1.6;
+            color: #333;
+        }
         
         .recommendations {
             background: #fff3cd;
@@ -202,6 +237,26 @@
             background: #5a6268;
             transform: translateY(-2px);
         }
+
+        /* Report Footer */
+        .report-footer {
+            background: #f8f9fa;
+            padding: 20px 40px;
+            text-align: center;
+            border-top: 3px solid #4A70A9;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .report-footer p {
+            margin: 5px 0;
+            color: #666;
+        }
+
+        .report-footer strong {
+            color: #4A70A9;
+            font-weight: 600;
+        }
         
         /* Rating Colors */
         .rating-excellent { background: #d4edda; color: #155724; }
@@ -210,14 +265,41 @@
         .rating-average { background: #fff3cd; color: #856404; }
         .rating-needs-improvement { background: #f8d7da; color: #721c24; }
 
+        /* Print styles */
+        @media print {
+            body {
+                background: white;
+            }
+            
+            .report-container {
+                box-shadow: none;
+                margin: 0;
+                width: 100%;
+                border: 2px solid #4A70A9;
+            }
+            
+            .action-buttons {
+                display: none;
+            }
+            
+            .report-footer {
+                position: fixed;
+                bottom: 0;
+                width: 100%;
+            }
+        }
+
         /* Responsive design */
         @media (max-width: 768px) {
             .report-container {
                 width: 95%;
+            }
+
+            .report-content {
                 padding: 25px 20px;
             }
 
-            .report-header h1 {
+            .report-header-bar h1 {
                 font-size: 24px;
             }
 
@@ -244,56 +326,66 @@
 <body>
 
 <div class="report-container">
-    <div class="report-header">
-        <h1>🎓 Career Foundation Assessment Report</h1>
+    <!-- Header Bar -->
+    <div class="report-header-bar">
+        <h1>Career Foundation Assessment Report</h1>
         <p>Comprehensive analysis of your learning profile</p>
     </div>
 
-    <div class="student-info">
-        <p><strong>Name:</strong> <span id="studentName">Loading...</span></p>
-        <p><strong>Class:</strong> <span id="studentClass">Loading...</span></p>
-        <p><strong>Date:</strong> <span id="reportDate"></span></p>
-    </div>
+    <!-- Main Content Area -->
+    <div class="report-content">
+        <div class="student-info">
+            <p><strong>Name:</strong> <span id="studentName">Loading...</span></p>
+            <p><strong>Class:</strong> <span id="studentClass">Loading...</span></p>
+            <p><strong>Date:</strong> <span id="reportDate"></span></p>
+        </div>
 
-    <!-- ============ STUDY HABITS SECTION ============ -->
-    <div class="test-section">
-        <h2>📚 1. Study Habits Assessment</h2>
-        <div id="studyHabitsContent">
-            <p>Loading study habits results...</p>
+        <!-- ============ STUDY HABITS SECTION ============ -->
+        <div class="test-section">
+            <h2>1. Study Habits Assessment</h2>
+            <div id="studyHabitsContent">
+                <p>Loading study habits results...</p>
+            </div>
+        </div>
+
+        <!-- ============ LEARNING STYLE SECTION ============ -->
+        <div class="test-section">
+            <h2>2. Learning Style Profile</h2>
+            <div id="learningStyleContent">
+                <p>Loading learning style results...</p>
+            </div>
+        </div>
+
+        <!-- ============ APTITUDE TEST SECTION ============ -->
+        <div class="test-section">
+            <h2>3. Aptitude Assessment</h2>
+            <div id="aptitudeContent">
+                <p>Loading aptitude results...</p>
+            </div>
+        </div>
+
+        <!-- ============ OVERALL RECOMMENDATIONS ============ -->
+        <div class="recommendations">
+            <h3>Personalized Recommendations</h3>
+            <div id="overallRecommendations">
+                <p>Loading recommendations...</p>
+            </div>
+        </div>
+
+        <div class="action-buttons">
+            <button class="btn btn-primary" onclick="window.print()">
+                Print / Save as PDF
+            </button>
+            <button class="btn btn-secondary" onclick="window.location.href='select-test.html'">
+                Back to Tests
+            </button>
         </div>
     </div>
 
-    <!-- ============ LEARNING STYLE SECTION ============ -->
-    <div class="test-section">
-        <h2>🎨 2. Learning Style Profile</h2>
-        <div id="learningStyleContent">
-            <p>Loading learning style results...</p>
-        </div>
-    </div>
-
-    <!-- ============ APTITUDE TEST SECTION ============ -->
-    <div class="test-section">
-        <h2>📊 3. Aptitude Assessment</h2>
-        <div id="aptitudeContent">
-            <p>Loading aptitude results...</p>
-        </div>
-    </div>
-
-    <!-- ============ OVERALL RECOMMENDATIONS ============ -->
-    <div class="recommendations">
-        <h3>🎯 Personalized Recommendations</h3>
-        <div id="overallRecommendations">
-            <p>Loading recommendations...</p>
-        </div>
-    </div>
-
-    <div class="action-buttons">
-        <button class="btn btn-primary" onclick="window.print()">
-            📥 Print / Save as PDF
-        </button>
-        <button class="btn btn-secondary" onclick="window.location.href='select-test.html'">
-            🔙 Back to Tests
-        </button>
+    <!-- Footer -->
+    <div class="report-footer">
+        <p><strong>Report by Lakshya Career</strong></p>
+        <p>Building foundations for successful careers</p>
     </div>
 </div>
 
