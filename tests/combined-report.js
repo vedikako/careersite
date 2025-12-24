@@ -148,15 +148,15 @@ function createInterestAptitudeChart(interests, aptitude) {
                 {
                     label: 'Aptitude Level',
                     data: [aptitude.commerce, aptitude.humanities, aptitude.maths, aptitude.bio],
-                    backgroundColor: '#8B4513',
-                    borderColor: '#6B3410',
+                    backgroundColor: '#674595ff',
+                    borderColor: '#674595ff',
                     borderWidth: 1
                 },
                 {
                     label: 'Interest Level',
                     data: [interests.commerce, interests.humanities, interests.maths, interests.bio],
-                    backgroundColor: '#FFA500',
-                    borderColor: '#FF8C00',
+                    backgroundColor: '#479eb6ff',
+                    borderColor: '#479eb6ff',
                     borderWidth: 1
                 }
             ]
