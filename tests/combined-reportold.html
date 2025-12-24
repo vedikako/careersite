@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <title>Career Foundation Assessment Report</title>
     
+    <!-- Chart.js for graphs -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- jsPDF Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     
@@ -22,6 +25,7 @@
             line-height: 1.6;
         }
 
+        /* Print Page Setup */
         @page {
             size: A4;
             margin: 0;
@@ -34,6 +38,7 @@
             box-shadow: 0 0 20px rgba(0,0,0,0.1);
         }
 
+        /* Cover Page */
         .cover-page {
             height: 297mm;
             display: flex;
@@ -96,6 +101,7 @@
             letter-spacing: 2px;
         }
 
+        /* Report Pages */
         .report-page {
             min-height: 297mm;
             padding: 25mm 20mm;
@@ -108,6 +114,7 @@
             page-break-after: auto;
         }
 
+        /* Prevent page breaks inside elements */
         .rating-grid,
         .chart-container,
         .analysis-box,
@@ -116,6 +123,7 @@
             page-break-inside: avoid;
         }
 
+        /* Page Header */
         .page-header {
             margin-bottom: 20px;
             padding-bottom: 12px;
@@ -137,6 +145,7 @@
             font-weight: 600;
         }
 
+        /* Page Footer */
         .page-footer {
             position: absolute;
             bottom: 15mm;
@@ -149,6 +158,7 @@
             color: #666;
         }
 
+        /* Content Sections */
         .content-area {
             min-height: calc(297mm - 80mm);
         }
@@ -170,6 +180,7 @@
             font-weight: bold;
         }
 
+        /* Student Info Table */
         .info-table {
             width: 100%;
             border-collapse: collapse;
@@ -191,6 +202,7 @@
             print-color-adjust: exact !important;
         }
 
+        /* Rating Display */
         .rating-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -223,6 +235,7 @@
             margin-top: 5px;
         }
 
+        /* Rating Colors */
         .rating-excellent { 
             background: #d4edda !important; 
             color: #155724 !important;
@@ -254,6 +267,7 @@
             print-color-adjust: exact !important;
         }
 
+        /* Chart Container */
         .chart-container {
             background: white;
             padding: 15px;
@@ -267,6 +281,7 @@
             max-height: 270px !important;
         }
 
+        /* Analysis Boxes */
         .analysis-box {
             background: #f8f9fa;
             padding: 18px;
@@ -298,6 +313,7 @@
             color: #1e3c72;
         }
 
+        /* Recommendations */
         .recommendations-box {
             background: #fff9e6;
             padding: 22px;
@@ -325,6 +341,7 @@
             font-size: 13px;
         }
 
+        /* Action Buttons */
         .action-buttons {
             position: fixed;
             top: 20px;
@@ -365,6 +382,7 @@
             transform: translateY(-2px);
         }
 
+        /* Print Styles */
         @media print {
             body {
                 background: white;
@@ -392,6 +410,7 @@
                 page-break-after: auto;
             }
 
+            /* Force colors to print */
             * {
                 -webkit-print-color-adjust: exact !important;
                 print-color-adjust: exact !important;
@@ -403,6 +422,7 @@
             }
         }
 
+        /* Responsive */
         @media screen and (max-width: 768px) {
             .report-container {
                 width: 100%;
@@ -428,6 +448,7 @@
             }
         }
 
+        /* Loading overlay */
         .loading-overlay {
             display: none;
             position: fixed;
@@ -470,6 +491,7 @@
 </head>
 <body>
 
+<!-- Loading Overlay -->
 <div class="loading-overlay" id="loadingOverlay">
     <div class="loading-content">
         <div class="loading-spinner"></div>
@@ -478,6 +500,7 @@
     </div>
 </div>
 
+<!-- Action Buttons -->
 <div class="action-buttons">
     <button class="btn btn-primary" onclick="downloadPDF()">
         📄 Download PDF
@@ -505,10 +528,10 @@
         </div>
     </div>
 
-    <!-- PAGE 1: INTEREST VS APTITUDE -->
+    <!-- PAGE 1: STUDENT INFORMATION & STUDY HABITS -->
     <div class="report-page">
         <div class="page-header">
-            <h2>Career Stream Analysis</h2>
+            <h2>Student Information & Study Habits</h2>
             <span class="page-number">Page 1</span>
         </div>
 
@@ -532,27 +555,7 @@
                 </tr>
             </table>
 
-            <div class="section-title">Interest vs Aptitude Comparison</div>
-            
-            <div id="interestAptitudeContent">
-                <p>Loading career stream analysis...</p>
-            </div>
-        </div>
-
-        <div class="page-footer">
-            Career Foundation Assessment Report | Curated by Lakshya Careers | Confidential Document
-        </div>
-    </div>
-
-    <!-- PAGE 2: STUDY HABITS -->
-    <div class="report-page">
-        <div class="page-header">
-            <h2>Study Habits Assessment</h2>
-            <span class="page-number">Page 2</span>
-        </div>
-
-        <div class="content-area">
-            <div class="section-title">Study Habits Performance</div>
+            <div class="section-title">1. Study Habits Assessment</div>
             
             <div id="studyHabitsContent">
                 <p>Loading study habits results...</p>
@@ -564,18 +567,38 @@
         </div>
     </div>
 
-    <!-- PAGE 3: LEARNING STYLE -->
+    <!-- PAGE 2: LEARNING STYLE -->
     <div class="report-page">
         <div class="page-header">
             <h2>Learning Style Profile</h2>
+            <span class="page-number">Page 2</span>
+        </div>
+
+        <div class="content-area">
+            <div class="section-title">2. Learning Style Assessment</div>
+            
+            <div id="learningStyleContent">
+                <p>Loading learning style results...</p>
+            </div>
+        </div>
+
+        <div class="page-footer">
+            Career Foundation Assessment Report | Curated by Lakshya Careers | Confidential Document
+        </div>
+    </div>
+
+    <!-- PAGE 3: APTITUDE TEST -->
+    <div class="report-page">
+        <div class="page-header">
+            <h2>Aptitude Assessment</h2>
             <span class="page-number">Page 3</span>
         </div>
 
         <div class="content-area">
-            <div class="section-title">Learning Style Assessment</div>
+            <div class="section-title">3. Aptitude Test Results</div>
             
-            <div id="learningStyleContent">
-                <p>Loading learning style results...</p>
+            <div id="aptitudeContent">
+                <p>Loading aptitude results...</p>
             </div>
         </div>
 
@@ -628,10 +651,14 @@
 </div>
 
 <script>
+// PDF Download Function
 async function downloadPDF() {
     const { jsPDF } = window.jspdf;
     
+    // Show loading overlay
     document.getElementById('loadingOverlay').classList.add('active');
+    
+    // Hide action buttons
     document.querySelector('.action-buttons').style.display = 'none';
     
     try {
@@ -641,13 +668,14 @@ async function downloadPDF() {
         for (let i = 0; i < pages.length; i++) {
             const page = pages[i];
             
+            // Capture the page as canvas
             const canvas = await html2canvas(page, {
                 scale: 2,
                 useCORS: true,
                 logging: false,
                 backgroundColor: page.classList.contains('cover-page') ? null : '#ffffff',
-                windowWidth: 794,
-                windowHeight: 1123
+                windowWidth: 794, // A4 width in pixels at 96 DPI
+                windowHeight: 1123 // A4 height in pixels at 96 DPI
             });
             
             const imgData = canvas.toDataURL('image/png');
@@ -656,24 +684,31 @@ async function downloadPDF() {
                 pdf.addPage();
             }
             
+            // Add image to PDF (A4 size: 210 x 297 mm)
             pdf.addImage(imgData, 'PNG', 0, 0, 210, 297);
         }
         
+        // Generate student name for filename
         const studentName = localStorage.getItem("student_name") || "Student";
         const fileName = `Career_Assessment_Report_${studentName.replace(/\s+/g, '_')}.pdf`;
         
+        // Save the PDF
         pdf.save(fileName);
         
     } catch (error) {
         console.error('Error generating PDF:', error);
         alert('Error generating PDF. Please try again.');
     } finally {
+        // Hide loading overlay
         document.getElementById('loadingOverlay').classList.remove('active');
+        
+        // Show action buttons again
         document.querySelector('.action-buttons').style.display = 'flex';
     }
 }
 </script>
 
+<!-- Link to external JavaScript file -->
 <script src="combined-report.js"></script>
 
 </body>
